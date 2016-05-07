@@ -10,7 +10,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
-public class ExcelPoi {
+public class WriteExcelPoi {
 	public static void main(String[] args){
 		//定义表头
 		String[] title = {"id","name","sex"};
@@ -39,6 +39,7 @@ public class ExcelPoi {
 		}
 		//创建excel
 		File file = new File("C:\\Users\\333666666\\Desktop\\test.xls");
+		FileOutputStream stream = null;
 		try {
 			if(!file.exists())	file.createNewFile();
 			String name = file.getName();
@@ -48,10 +49,18 @@ public class ExcelPoi {
 			e1.printStackTrace();
 		}
 		try {
-			FileOutputStream stream = new FileOutputStream(file);
+			stream = new FileOutputStream(file);
 			workbook.write(stream);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally{
+			try {
+				if(stream != null) stream.close();
+				if(workbook != null) workbook.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 		}
 	}
 }
